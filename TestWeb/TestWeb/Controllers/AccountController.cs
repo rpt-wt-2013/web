@@ -23,7 +23,7 @@ namespace TestWeb.Controllers
         //
         // POST: /Account/LogOn
 
-        /*[HttpPost]
+        [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -49,12 +49,12 @@ namespace TestWeb.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
-        }*/
+        }
 
         //
         // GET: /Account/LogOff
 
-        public ActionResult LogOff(Object model)
+        public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
 
@@ -83,6 +83,7 @@ namespace TestWeb.Controllers
             System.Diagnostics.Debug.WriteLine("starting registration");
             if (ModelState.IsValid)
             {
+                String user = String.Format("e:/Dropbox/projects/c#/TestWeb/TestWeb/Users/{0}", model.UserName);
                 System.Diagnostics.Debug.WriteLine("modelstate is valid");
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
@@ -91,6 +92,8 @@ namespace TestWeb.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                    System.IO.Directory.CreateDirectory(user);
+                    System.Diagnostics.Debug.WriteLine("hopefully created directory for user: {0}", User.Identity.Name);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -107,7 +110,7 @@ namespace TestWeb.Controllers
         // GET: /Account/ChangePassword
 
         [Authorize]
-        public ActionResult ChangePassword(Object model)
+        public ActionResult ChangePassword()
         {
             return View();
         }
@@ -152,17 +155,17 @@ namespace TestWeb.Controllers
         //
         // GET: /Account/ChangePasswordSuccess
 
-        public ActionResult ChangePasswordSuccess(Object model)
+        public ActionResult ChangePasswordSuccess()
         {
             return View();
         }
 
-        public ActionResult ChangeEmail(Object model)
+        public ActionResult ChangeEmail()
         {
             return View();
         }
 
-        public ActionResult ChangeEmailSuccess(Object model)
+        public ActionResult ChangeEmailSuccess()
         {
             return View();
         }

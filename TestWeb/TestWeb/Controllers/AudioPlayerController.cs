@@ -21,7 +21,7 @@ namespace TestWeb.Controllers
             return View();
         }
 
-        public ActionResult EmptySongPlayer(Object model)
+        public ActionResult EmptyAudioPlayer(Object model)
         {
             return View();
         }

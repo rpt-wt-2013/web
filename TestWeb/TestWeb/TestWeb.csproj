@@ -117,6 +117,7 @@
     <Compile Include="Models\FilesLibrary\UnknownFile.cs" />
     <Compile Include="Models\FilesLibrary\VideoFile.cs" />
     <Compile Include="Models\FilesLibrary\WorkingFolder.cs" />
+    <Compile Include="MyHelpers\SessionVariables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,7 +176,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
-    <Content Include="ClassDiagram2.cd" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -237,6 +237,8 @@
     <Content Include="Views\Reader\EmptyReader.cshtml" />
     <Content Include="Views\Account\_RegisterPartial.cshtml" />
     <Content Include="Views\Account\PartialReg.cshtml" />
+    <Content Include="Views\Browser\Root.cshtml" />
+    <Content Include="Views\Browser\Folder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

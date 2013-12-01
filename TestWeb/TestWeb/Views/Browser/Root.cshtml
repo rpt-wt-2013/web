@@ -1,0 +1,18 @@
+﻿@model TestWeb.Models.FilesLibrary.WorkingFolder
+@using TestWeb.Models.FilesLibrary;
+@{
+    ViewBag.Title = "Root";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{int idt = 0;}
+<h2>Root</h2>
+<ul>
+@foreach (AbstractFile file in Model.GetFiles())
+{
+    <li>
+        @Html.ActionLink(file.Name, "Folder", new { id = idt })
+    </li>
+    idt++;
+}
+</ul>
+

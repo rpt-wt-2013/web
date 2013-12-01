@@ -8,7 +8,6 @@
 <body>
     <div class="page">
         <div id="header">
-            
             <div id="title">
                 <h1>
                     @Html.ActionLink("Calamity", "Index", "Home", new { @class ="logo"})
@@ -20,11 +19,13 @@
             <div id="menucontainer">
                 <ul id="menu">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Cubi", "Cubi", "Home")</li>
                     @if (Request.IsAuthenticated)
                     {
                         <li> @Html.ActionLink("Change password","ChangePassword","Account")</li>
+                        <li> @Html.ActionLink("File Browser","Root","Browser")</li>
+                        <li> @Html.ActionLink("Video player","EmptyVideoPlayer","VideoPlayer")</li>
+                        <li> @Html.ActionLink("Audio player","EmptyAudioPlayer","AudioPlayer")</li>
+                        <li> @Html.ActionLink("Reader","EmptyReader","Reader")</li>
                     }
                 </ul>
             </div>

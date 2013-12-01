@@ -36,7 +36,7 @@ namespace TestWeb.Models.FilesLibrary
             }
         }
 
-        public AbstractFile LoadWorkingFolder(DirectoryInfo dirInfo)
+        public WorkingFolder LoadWorkingFolder(DirectoryInfo dirInfo)
         {
             WorkingFolder folder;
             folder = new WorkingFolder(dirInfo);

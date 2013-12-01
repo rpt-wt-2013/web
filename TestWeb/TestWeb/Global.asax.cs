@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using TestWeb.Models.FilesLibrary;
 
 namespace TestWeb
 {
@@ -29,6 +30,16 @@ namespace TestWeb
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
+        }
+
+        public void Session_Start(object sender, EventArgs e)
+        {
+            FileLoader fl = new FileLoader();
+            fl.addAudioExtension(".mp3");
+            fl.addTextExtension(".txt");
+            fl.addVideoExtension(".avi");
+            fl.addTextExtension(".pdf");
+            HttpContext.Current.Session.Add("FileLoader",fl);
         }
 
         protected void Application_Start()
