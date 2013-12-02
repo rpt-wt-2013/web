@@ -64,6 +64,6 @@ namespace TestWeb.Models.FilesLibrary
             get { return file.FullName; }
         }
 
-        public abstract string Parent { get; }
+        public abstract DirectoryInfo Parent { get; }
     }
 }

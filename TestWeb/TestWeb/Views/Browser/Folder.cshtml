@@ -4,17 +4,33 @@
     ViewBag.Title = "Folder";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{int idt = 0;}
 <h2>Folder</h2>
+@using (Html.BeginForm("Upload", "Browser", FormMethod.Post, new {enctype="multipart/form-data"})){ 
+
+     <input type="file" name="FileUpload1" /><br />
+     <input type="submit" name="Submit" id="Submit" value="Upload" />
+}
 <ul>
     <li>
         @Html.ActionLink("[..]", "ParentDirectory")
     </li>
+@{int idt = 0;}
 @foreach (AbstractFile file in Model.GetFiles())
 {
-    <li>
-        @Html.ActionLink(file.Name, "Folder", new { id = idt })
-    </li>
+    if (file is Folder)
+    {
+        String link;
+        link = String.Format("[{0}]", file.Name);
+        <li>
+        @Html.ActionLink(link, "Folder", new { id = idt })
+        </li>
+    }
+    else
+    {
+        <li>
+        @Html.ActionLink(file.Name, "DownloadFile", new { id = idt })
+        </li>
+    }
     idt++;
 }
 </ul>

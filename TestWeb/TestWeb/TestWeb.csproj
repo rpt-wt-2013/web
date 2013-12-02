@@ -117,6 +117,7 @@
     <Compile Include="Models\FilesLibrary\UnknownFile.cs" />
     <Compile Include="Models\FilesLibrary\VideoFile.cs" />
     <Compile Include="Models\FilesLibrary\WorkingFolder.cs" />
+    <Compile Include="MyHelpers\ExtensionMethods.cs" />
     <Compile Include="MyHelpers\SessionVariables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

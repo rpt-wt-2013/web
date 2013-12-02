@@ -58,11 +58,11 @@ namespace TestWeb.Models.FilesLibrary
             System.IO.File.Copy(((DirectoryInfo)File).FullName, newLocation);
         }
 
-        public override string Parent
+        public override DirectoryInfo Parent
         {
             get
             {
-                return ((DirectoryInfo)File).Parent.FullName;
+                return ((DirectoryInfo)File).Parent;
             }
         }
     }

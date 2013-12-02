@@ -24,4 +24,18 @@ namespace TestWeb.MyHelpers
             HttpContext.Current.Session.Add("WorkingFolder", folder);
         }
     }
+
+    public class MimeHelp
+    {
+        public static String DecideMime(String extension)
+        {
+            switch (extension)
+            {
+                case ".txt" :
+                    return "text/plain";
+                default :
+                    return null;
+            }
+        }
+    }
 }

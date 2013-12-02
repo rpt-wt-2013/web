@@ -16,9 +16,9 @@ namespace TestWeb.Models.FilesLibrary
             get { return ((FileInfo)File).Extension;  }
         }
 
-        public override string Parent
+        public override DirectoryInfo Parent
         {
-            get { return ((FileInfo)File).DirectoryName; }
+            get { return ((FileInfo)File).Directory; }
         }
 
         public override bool IsFile()
