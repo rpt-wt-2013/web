@@ -10,25 +10,105 @@
      <input type="file" name="FileUpload1" /><br />
      <input type="submit" name="Submit" id="Submit" value="Upload" />
 }
-<ul>
+<div class="FileTree" style="float:left;">
+    @{String dir = String.Format("E:/Dropbox/Projects/c#/TestWeb/TestWeb/Users/{0}", User.Identity.Name);}
+    @{Html.RenderAction("FileTree","Browser", new {@folder = dir});}
+</div>
+<table style="border-width:medium;">
+    <tr>
+        <th style="width:250px">
+            Name
+        </th>
+        <th style="width:75px">
+            Type
+        </th>
+        <th style="width:75px">
+            Size
+        </th>
+    <tr>
 @{int idt = 0;}
 @foreach (AbstractFile file in Model.GetFiles())
 {
-    if (file is Folder)
+    <tr>
+    @if (file is Folder)
     {
-        String link;
-        link = String.Format("[{0}]", file.Name);
-        <li>
-        @Html.ActionLink(link, "Folder", new { id = idt })
-        </li>
+        <td>
+            <a href="@Url.Action("Folder", "Browser", new { @name = file.FullName })">
+                <img src="@Url.Content("~/Content/icons/folder24.png")"/>
+                @String.Format("[{0}]", file.Name)
+            </a>
+        </td>
+        <td>
+            Folder
+        </td>
+        <td>
+            &ltDIR&gt
+        </td>
     }
     else
     {
-        <li>
-        @Html.ActionLink(file.Name, "DownloadFile", new { id = idt })
-        </li>
-    }
-    idt++;
-}
-</ul>
+            var type = "";
+            var controller = "";
+            var action = "";
+            var image = "";
+        
+            
+              if (file is AudioFile)
+              {
+                  type = "Audio";
+                  controller = "AudioPlayer";
+                  action = "EmptyAudioPlayer";
+                  image = "audio24";
+              }
+              else if (file is VideoFile)
+              {
+                  type = "Video";
+                  controller = "VideoPlayer";
+                  action = "PlayVideo";
+                  image = "video24";
+              }
+              else if (file is TextFile)
+              {
+                  type = "Text";
+                  controller = "TextViewer";
+                  action = "ViewText";
+                  image = "text24";
+              }
+              else if (file is UnknownFile)
+              {
+                  type = "Other";
+                  controller = "Browser";
+                  action = "Download";
+                  image = "unknown24";
+              }
+            
+            
+        <td>
+            <a href="@Url.Action(@action, @controller, new { @name = file.FullName})">
+            <img src="@Url.Content("~/Content/icons/" + @image + ".png")"/>
 
+            @file.Name</a>
+        </td>
+        <td>
+            @type
+        </td>
+        <td>
+            @{ float length = ((FileInfo)file.File).Length; } 
+            @if (length < 1024) 
+            {
+                @String.Format("{0} B", length)
+            }
+            @if (length > 1024 && length < (1024 * 1024)) 
+            { 
+                @String.Format("{0} kB", Math.Round((length / 1024), 2))
+            }
+            @if (length > (1024 * 1024)) 
+            { 
+                @String.Format("{0} MB", Math.Round((length / (1024 * 1024)), 2))
+            }
+        </td>
+    }
+    @{idt++;}
+    </tr>
+}
+</table>

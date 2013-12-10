@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Lib.Web.Mvc">
+      <HintPath>..\ReferenceAssemblies\Lib.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System" />
@@ -102,10 +105,11 @@
     <Compile Include="Controllers\PlaylistManagerController.cs" />
     <Compile Include="Controllers\ReaderController.cs" />
     <Compile Include="Controllers\VideoPlayerController.cs" />
+    <Compile Include="Extensions\VideoResult.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HtmlExtensions\HtmlExtensions.cs" />
+    <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\FilesLibrary\AbstractFile.cs" />
     <Compile Include="Models\FilesLibrary\AbsurdException.cs" />
@@ -118,10 +122,70 @@
     <Compile Include="Models\FilesLibrary\VideoFile.cs" />
     <Compile Include="Models\FilesLibrary\WorkingFolder.cs" />
     <Compile Include="MyHelpers\ExtensionMethods.cs" />
-    <Compile Include="MyHelpers\SessionVariables.cs" />
+    <Compile Include="MyHelpers\HelperClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\icons\2download16.png" />
+    <Content Include="Content\icons\2download24.png" />
+    <Content Include="Content\icons\2download32.png" />
+    <Content Include="Content\icons\2settings16.png" />
+    <Content Include="Content\icons\2settings24.png" />
+    <Content Include="Content\icons\2settings32.png" />
+    <Content Include="Content\icons\2video16.png" />
+    <Content Include="Content\icons\2video24.png" />
+    <Content Include="Content\icons\2video32.png" />
+    <Content Include="Content\icons\3settings16.png" />
+    <Content Include="Content\icons\3settings24.png" />
+    <Content Include="Content\icons\3settings32.png" />
+    <Content Include="Content\icons\3video16.png" />
+    <Content Include="Content\icons\3video24.png" />
+    <Content Include="Content\icons\3video32.png" />
+    <Content Include="Content\icons\4video16.png" />
+    <Content Include="Content\icons\4video24.png" />
+    <Content Include="Content\icons\4video32.png" />
+    <Content Include="Content\icons\audio16.png" />
+    <Content Include="Content\icons\audio24.png" />
+    <Content Include="Content\icons\audio32.png" />
+    <Content Include="Content\icons\delete16.png" />
+    <Content Include="Content\icons\delete24.png" />
+    <Content Include="Content\icons\delete32.png" />
+    <Content Include="Content\icons\download16.png" />
+    <Content Include="Content\icons\download24.png" />
+    <Content Include="Content\icons\download32.png" />
+    <Content Include="Content\icons\folder16.png" />
+    <Content Include="Content\icons\folder24.png" />
+    <Content Include="Content\icons\folder32.png" />
+    <Content Include="Content\icons\image16.png" />
+    <Content Include="Content\icons\image24.png" />
+    <Content Include="Content\icons\image32.png" />
+    <Content Include="Content\icons\settings16.png" />
+    <Content Include="Content\icons\settings24.png" />
+    <Content Include="Content\icons\settings32.png" />
+    <Content Include="Content\icons\text16.png" />
+    <Content Include="Content\icons\text24.png" />
+    <Content Include="Content\icons\text32.png" />
+    <Content Include="Content\icons\unknown16.png" />
+    <Content Include="Content\icons\unknown24.png" />
+    <Content Include="Content\icons\unknown32.png" />
+    <Content Include="Content\icons\upload16.png" />
+    <Content Include="Content\icons\upload24.png" />
+    <Content Include="Content\icons\upload32.png" />
+    <Content Include="Content\icons\user16.png" />
+    <Content Include="Content\icons\user24.png" />
+    <Content Include="Content\icons\user32.png" />
+    <Content Include="Content\icons\user48.png" />
+    <Content Include="Content\icons\user64.png" />
+    <Content Include="Content\icons\user72.png" />
+    <Content Include="Content\icons\video16.png" />
+    <Content Include="Content\icons\video24.png" />
+    <Content Include="Content\icons\video32.png" />
+    <Content Include="Content\jPlayer\jplayer.blue.monday.css" />
+    <Content Include="Content\jPlayer\jplayer.blue.monday.jpg" />
+    <Content Include="Content\jPlayer\jplayer.blue.monday.seeking.gif" />
+    <Content Include="Content\jPlayer\jplayer.blue.monday.video.play.png" />
+    <Content Include="Content\jPlayer\Miaow-07-Bubble.m4a" />
+    <Content Include="Content\webtoolkit.contextmenu.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -177,15 +241,23 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Content\jPlayer\jPlayer_blue.monday_extd.psd" />
+    <Content Include="Content\jPlayer\spirites_blue.monday_2011.psd" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\add-on\jplayer.playlist.min.js" />
+    <Content Include="Scripts\add-on\jquery.jplayer.inspector.js" />
+    <Content Include="Scripts\Jplayer.swf" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.jplayer.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\popcorn\popcorn.jplayer.js" />
+    <Content Include="Scripts\webtoolkit.contextmenu.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -240,6 +312,8 @@
     <Content Include="Views\Account\PartialReg.cshtml" />
     <Content Include="Views\Browser\Root.cshtml" />
     <Content Include="Views\Browser\Folder.cshtml" />
+    <Content Include="Views\AudioPlayer\EmptyAudioPlayer.cshtml" />
+    <Content Include="Views\Browser\FileTree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

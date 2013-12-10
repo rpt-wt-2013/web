@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using TestWeb.Models.FilesLibrary;
+using TestWeb.MyHelpers;
 
 namespace TestWeb
 {
@@ -38,8 +40,10 @@ namespace TestWeb
             fl.addAudioExtension(".mp3");
             fl.addTextExtension(".txt");
             fl.addVideoExtension(".avi");
+            fl.addVideoExtension(".mp4");
+            fl.addVideoExtension(".mkv");
             fl.addTextExtension(".pdf");
-            HttpContext.Current.Session.Add("FileLoader",fl);
+            HttpContext.Current.Session.Add("FileLoader", fl);
         }
 
         protected void Application_Start()

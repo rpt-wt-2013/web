@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TestWeb.Extensions;
 
 namespace TestWeb.Controllers
 {
@@ -10,6 +12,14 @@ namespace TestWeb.Controllers
     {
         //
         // GET: /AudioPlayer/
+
+        public ActionResult GetFile(String name)
+        {
+           // string filePath = Server.MapPath(Url.Content(name));
+
+            return new VideoResult(new FileInfo(name)); 
+            //File(filePath, "application/octet-stream", filePath);
+        }
 
         public ActionResult PlaySong(Object model)
         {
@@ -21,8 +31,9 @@ namespace TestWeb.Controllers
             return View();
         }
 
-        public ActionResult EmptyAudioPlayer(Object model)
+        public ActionResult EmptyAudioPlayer(String name)
         {
+            ViewBag.AudioName = name;
             return View();
         }
     }

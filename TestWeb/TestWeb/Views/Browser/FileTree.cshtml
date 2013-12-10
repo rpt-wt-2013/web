@@ -1,0 +1,16 @@
+﻿@model DirectoryInfo[]
+
+<ul style="list-style:none;">
+    @foreach (DirectoryInfo dir in Model)
+    {
+        <li>
+            <a href="@Url.Action("Folder", "Browser", new { @name = dir.FullName })">
+                @dir.Name
+            </a>
+            @if(dir.GetDirectories().Length > 0)
+            {
+                Html.RenderAction("FileTree", "Browser", new { @folder = dir.FullName });
+            }
+        </li>
+    }
+</ul>

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using TestWeb.Models;
+using TestWeb.Models.FilesLibrary;
+using TestWeb.MyHelpers;
 
 namespace TestWeb.Controllers
 {
@@ -13,13 +16,18 @@ namespace TestWeb.Controllers
     {
 
         //
-        // GET: /Account/LogOnE:\Dropbox\projects\c#\TestWeb\TestWeb\Controllers\AccountController.cs
+        // GET: /Account/LogOn
 
-        public PartialViewResult LogOn()
+        public ActionResult LogOn()
+        {
+            return View(new LogOnModel());
+        }
+
+
+        public PartialViewResult LogOnPartial()
         {
             return PartialView("_LogOnPartial", new LogOnModel());
         }
-
         //
         // POST: /Account/LogOn
 
@@ -30,6 +38,12 @@ namespace TestWeb.Controllers
             {
                 if (Membership.ValidateUser(model.UserName, model.Password))
                 {
+                    String user = String.Format("E:/Dropbox/Projects/c#/TestWeb/TestWeb/Users/{0}", model.UserName);
+                    System.Diagnostics.Debug.WriteLine("creating default working folder");
+                    DirectoryInfo dinfo = new DirectoryInfo(user);
+                    WorkingFolder wfolder = SessionVariables.GetFileLoader().LoadWorkingFolder(dinfo);
+                    System.Diagnostics.Debug.WriteLine("created working directory for root");
+                    SessionVariables.setWorkingFolder(wfolder);
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -83,7 +97,7 @@ namespace TestWeb.Controllers
             System.Diagnostics.Debug.WriteLine("starting registration");
             if (ModelState.IsValid)
             {
-                String user = String.Format("e:/Dropbox/projects/c#/TestWeb/TestWeb/Users/{0}", model.UserName);
+                String user = String.Format("E:/Dropbox/Projects/c#/TestWeb/TestWeb/users/{0}", model.UserName);
                 System.Diagnostics.Debug.WriteLine("modelstate is valid");
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;

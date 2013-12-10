@@ -11,7 +11,7 @@ namespace TestWeb.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
-
+            ViewBag.Rofl = "this is some rofl";
             return View();
         }
 

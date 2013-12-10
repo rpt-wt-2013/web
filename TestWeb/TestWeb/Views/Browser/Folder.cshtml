@@ -4,33 +4,139 @@
     ViewBag.Title = "Folder";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h2>Folder</h2>
 @using (Html.BeginForm("Upload", "Browser", FormMethod.Post, new {enctype="multipart/form-data"})){ 
 
      <input type="file" name="FileUpload1" /><br />
      <input type="submit" name="Submit" id="Submit" value="Upload" />
 }
-<ul>
-    <li>
-        @Html.ActionLink("[..]", "ParentDirectory")
-    </li>
+
+<!--
+    <ul id="CM1" class="SimpleContextMenu">
+        <li id="cubi"><a href="#">Item 1</a></li>
+        <li><a href="#">Item 2</a></li>
+        <li><a href="#">Item 3</a></li>
+        <li><a href="#">Item 4</a></li>
+    </ul>
+ 
+    <input type="text" name="field" value="" />
+    <div class="container">Cointainer1</div>
+    <div class="container">Cointainer2</div>
+    <div class="container">Cointainer3</div>
+-->
+
+<div class="FileTree" style="float:left;">
+    @{String dir = String.Format("E:/Dropbox/Projects/c#/TestWeb/TestWeb/Users/{0}", User.Identity.Name);}
+    @{Html.RenderAction("FileTree","Browser", new {@folder = dir});}
+</div>
+
+<table style="border-width:medium;">
+    <tr>
+        <th style="width:250px">
+            Name
+        </th>
+        <th style="width:75px">
+            Type
+        </th>
+        <th style="width:75px">
+            Size
+        </th>
+    <tr>
+    <tr>
+        <td>
+            <img src="@Url.Content("~/Content/icons/folder24.png")"/>
+            <a href=@Url.Action("ParentDirectory")>
+                [..]
+            </a>
+        </td>
+        <td>
+            Folder
+        </td>
+        <td>
+            &ltDIR&gt
+        </td>
+    </tr>
 @{int idt = 0;}
 @foreach (AbstractFile file in Model.GetFiles())
 {
-    if (file is Folder)
+    <tr>
+    @if (file is Folder)
     {
-        String link;
-        link = String.Format("[{0}]", file.Name);
-        <li>
-        @Html.ActionLink(link, "Folder", new { id = idt })
-        </li>
+        <td>
+            <img src="@Url.Content("~/Content/icons/folder24.png")"/>
+            @Html.ActionLink(String.Format("[{0}]", file.Name), "Folder", new { @name = file.FullName })
+        </td>
+        <td>
+            Folder
+        </td>
+        <td>
+            &ltDIR&gt
+        </td>
     }
     else
     {
-        <li>
-        @Html.ActionLink(file.Name, "DownloadFile", new { id = idt })
-        </li>
+            var type = "";
+            var controller = "";
+            var action = "";
+            var image = "";
+        
+            
+              if (file is AudioFile)
+              {
+                  type = "Audio";
+                  controller = "AudioPlayer";
+                  action = "PlayAudio";
+                  image = "audio24";
+              }
+              else if (file is VideoFile)
+              {
+                  type = "Video";
+                  controller = "VideoPlayer";
+                  action = "PlayVideo";
+                  image = "video24";
+              }
+              else if (file is TextFile)
+              {
+                  type = "Text";
+                  controller = "TextViewer";
+                  action = "ViewText";
+                  image = "text24";
+              }
+              else if (file is UnknownFile)
+              {
+                  type = "Other";
+                  controller = "Browser";
+                  action = "Download";
+                  image = "unknown24";
+              }
+            
+            
+        <td>
+            <img src="@Url.Content("~/Content/icons/" + @image + ".png")"/>
+
+            <a href="@Url.Action(@action, @controller, new { @name = file.FullName})">@file.Name</a>
+        </td>
+        <td>
+            @type
+        </td>
+        <td>
+            @{ float length = ((FileInfo)file.File).Length; } 
+            @if (length < 1024) 
+            {
+                @String.Format("{0} B", length)
+            }
+            @if (length > 1024 && length < (1024 * 1024)) 
+            { 
+                @String.Format("{0} kB", Math.Round((length / 1024), 2))
+            }
+            @if (length > (1024 * 1024)) 
+            { 
+                @String.Format("{0} MB", Math.Round((length / (1024 * 1024)), 2))
+            }
+        </td>
     }
-    idt++;
+    @{idt++;}
+    </tr>
 }
-</ul>
+</table>

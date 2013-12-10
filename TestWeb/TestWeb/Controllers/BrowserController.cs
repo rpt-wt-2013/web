@@ -13,9 +13,14 @@ namespace TestWeb.Controllers
     {
         // GET: /Browser/
 
+        [Authorize]
         public ActionResult Browse()
         {
             WorkingFolder wfolder = SessionVariables.GetWorkingFolder();
+            if (wfolder == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (wfolder.Name == User.Identity.Name)
             {
                 return View("Root", wfolder);
@@ -26,9 +31,10 @@ namespace TestWeb.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Root()
         {
-            String user = String.Format("e:/Dropbox/projects/c#/TestWeb/TestWeb/Users/{0}", User.Identity.Name);
+            String user = String.Format("E:/Dropbox/Projects/c#/TestWeb/TestWeb/users/{0}", User.Identity.Name);
             System.Diagnostics.Debug.WriteLine("starting browser in root");
             DirectoryInfo dinfo = new DirectoryInfo(user);
             FileLoader fl = SessionVariables.GetFileLoader();
@@ -38,15 +44,17 @@ namespace TestWeb.Controllers
             return RedirectToAction("Browse");
         }
 
-        public ActionResult Folder(int id = 0)
+        [Authorize]
+        public ActionResult Folder(String name)
         {
-            List<AbstractFile> files = SessionVariables.GetWorkingFolder().GetFiles();
+            //List<AbstractFile> files = SessionVariables.GetWorkingFolder().GetFiles();
             FileLoader fl = SessionVariables.GetFileLoader();
-            WorkingFolder wfolder = fl.LoadWorkingFolder((DirectoryInfo)files[id].File);
+            WorkingFolder wfolder = fl.LoadWorkingFolder(new DirectoryInfo(name));
             SessionVariables.setWorkingFolder(wfolder);
             return RedirectToAction("Browse");
         }
 
+        [Authorize]
         public ActionResult ParentDirectory()
         {
             FileLoader fl = SessionVariables.GetFileLoader();
@@ -58,13 +66,14 @@ namespace TestWeb.Controllers
             }
             return RedirectToAction("Browse");
         }
-        
-        public FilePathResult DownloadFile(int id = 0)
+
+        [Authorize]
+        public FilePathResult DownloadFile(String name)
         {
-            AbstractFile file = SessionVariables.GetWorkingFolder().GetFiles()[id];
-            return File(file.FullName, MimeHelp.DecideMime(file.File.Extension), file.Name);
+            return File(name, MimeHelp.getMimeFromFile(name), name);
         }
 
+        [Authorize]
         public ActionResult Upload()
         {
             foreach (string upload in Request.Files)
@@ -75,6 +84,12 @@ namespace TestWeb.Controllers
                 Request.Files[upload].SaveAs(Path.Combine(path, filename));
             }
             return RedirectToAction("Browse");
+        }
+
+        public PartialViewResult FileTree(String folder)
+        {
+            DirectoryInfo dir = new DirectoryInfo(folder);
+            return PartialView(dir.GetDirectories());
         }
 
         public ActionResult DeleteFile()
