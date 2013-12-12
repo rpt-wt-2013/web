@@ -69,4 +69,19 @@ namespace TestWeb.MyHelpers
             }
         }
     }
+
+    public class IDHelper
+    {
+        private static int id;
+
+        public static void ResetId()
+        {
+            id = 0;
+        }
+
+        public static String GetId()
+        {
+            return String.Format("{0}",id++);
+        }
+    }
 }

@@ -111,12 +111,14 @@
     </Compile>
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BrowseModels.cs" />
     <Compile Include="Models\FilesLibrary\AbstractFile.cs" />
     <Compile Include="Models\FilesLibrary\AbsurdException.cs" />
     <Compile Include="Models\FilesLibrary\AudioFile.cs" />
     <Compile Include="Models\FilesLibrary\FileLoader.cs" />
     <Compile Include="Models\FilesLibrary\Folder.cs" />
     <Compile Include="Models\FilesLibrary\GeneralFile.cs" />
+    <Compile Include="Models\FilesLibrary\PictureFile.cs" />
     <Compile Include="Models\FilesLibrary\TextFile.cs" />
     <Compile Include="Models\FilesLibrary\UnknownFile.cs" />
     <Compile Include="Models\FilesLibrary\VideoFile.cs" />
@@ -246,6 +248,7 @@
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\add-on\jplayer.playlist.min.js" />
     <Content Include="Scripts\add-on\jquery.jplayer.inspector.js" />
+    <Content Include="Scripts\cubi.js" />
     <Content Include="Scripts\Jplayer.swf" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -313,7 +316,8 @@
     <Content Include="Views\Browser\Root.cshtml" />
     <Content Include="Views\Browser\Folder.cshtml" />
     <Content Include="Views\AudioPlayer\EmptyAudioPlayer.cshtml" />
-    <Content Include="Views\Browser\FileTree.cshtml" />
+    <Content Include="Views\Browser\MoveFileTree.cshtml" />
+    <Content Include="Views\Browser\CopyFileTree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

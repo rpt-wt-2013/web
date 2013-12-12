@@ -1,5 +1,15 @@
-﻿@{
-    ViewBag.Title = "RenameFile";
+﻿@model TestWeb.Models.RenameModel
+@{ Layout = null;}
+@using (Html.BeginForm("RenameFile", "Browser", FormMethod.Post, new { @id = "rename", @style = "display:none;" }))
+{
+    <div class="editor-label">
+        @Html.LabelFor(m => m.NewName)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(m => m.NewName)
+    </div>
+    @Html.HiddenFor(m => m.File, Model.File)
+    <p>
+        <input type="submit" value="Rename" />
+    </p>
 }
-
-<h2>RenameFile</h2>

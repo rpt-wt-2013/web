@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TestWeb.Models;
 using TestWeb.Models.FilesLibrary;
 using TestWeb.MyHelpers;
 
@@ -19,7 +20,7 @@ namespace TestWeb.Controllers
             WorkingFolder wfolder = SessionVariables.GetWorkingFolder();
             if (wfolder == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Root", "Browser");
             }
             if (wfolder.Name == User.Identity.Name)
             {
@@ -86,40 +87,82 @@ namespace TestWeb.Controllers
             return RedirectToAction("Browse");
         }
 
-        public PartialViewResult FileTree(String folder)
+        public PartialViewResult FileTree(String folder, String view)
         {
             DirectoryInfo dir = new DirectoryInfo(folder);
-            return PartialView(dir.GetDirectories());
+            return PartialView(view, dir.GetDirectories());
         }
 
-        public ActionResult DeleteFile()
+        public ActionResult DeleteFile(String name)
         {
-            return View();
+            AbstractFile file = SessionVariables.GetFileLoader().LoadAbstractFile(name.GetFSInfo());
+            file.Delete();
+            return RedirectToAction("Browse");
         }
 
         public ActionResult MoveFile()
         {
-            return View();
+            return View(new MoveModel());
+        }
+
+        [HttpPost]
+        public ActionResult MoveFile(MoveModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                AbstractFile file = SessionVariables.GetFileLoader().LoadAbstractFile(model.File.GetFSInfo());
+                System.Diagnostics.Debug.WriteLine("move file, model is:");
+                System.Diagnostics.Debug.WriteLine(file.FullName);
+                System.Diagnostics.Debug.WriteLine(model.NewPath);
+                file.Move(model.NewPath);
+            }
+            return RedirectToAction("Browse");
         }
 
         public ActionResult CopyFile()
         {
-            return View();
+            return View(new CopyModel());
+        }
+
+        [HttpPost]
+        public ActionResult CopyFile(CopyModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                AbstractFile file = SessionVariables.GetFileLoader().LoadAbstractFile(model.File.GetFSInfo());
+                System.Diagnostics.Debug.WriteLine("copy file, model is:");
+                System.Diagnostics.Debug.WriteLine(file.FullName);
+                System.Diagnostics.Debug.WriteLine(model.NewPath);
+                file.Copy(model.NewPath);
+            }
+            return RedirectToAction("Browse");
         }
 
         public ActionResult RenameFile()
         {
-            return View();
+            return View(new RenameModel());
+        }
+        
+        [HttpPost]
+        public ActionResult RenameFile(RenameModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                AbstractFile file = SessionVariables.GetFileLoader().LoadAbstractFile(model.File.GetFSInfo());
+                System.Diagnostics.Debug.WriteLine("rename file, model is:");
+                System.Diagnostics.Debug.WriteLine(file.FullName);
+                System.Diagnostics.Debug.WriteLine(model.NewName);
+                file.Rename(model.NewName);
+            }
+            return RedirectToAction("Browse");
         }
 
-        public ActionResult CreateDirectory()
+        
+        public ActionResult CreateDirectory(String name)
         {
-            return View();
-        }
-
-        public ActionResult ChangeDirectory()
-        {
-            return View();
+            WorkingFolder wf = SessionVariables.GetWorkingFolder();
+            Directory.CreateDirectory(wf.FullName+name);
+            return RedirectToAction("Browse");
         }
     }
 }

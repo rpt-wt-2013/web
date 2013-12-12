@@ -37,12 +37,17 @@ namespace TestWeb
         public void Session_Start(object sender, EventArgs e)
         {
             FileLoader fl = new FileLoader();
-            fl.addAudioExtension(".mp3");
             fl.addTextExtension(".txt");
+            fl.addTextExtension(".doc");
+            fl.addTextExtension(".docx");
+            fl.addTextExtension(".pdf");
+            fl.addAudioExtension(".mp3");
             fl.addVideoExtension(".avi");
             fl.addVideoExtension(".mp4");
             fl.addVideoExtension(".mkv");
-            fl.addTextExtension(".pdf");
+            fl.addPictureExtension(".jpg");
+            fl.addPictureExtension(".png");
+            fl.addPictureExtension(".bmp");
             HttpContext.Current.Session.Add("FileLoader", fl);
         }
 

@@ -12,12 +12,14 @@ namespace TestWeb.Models.FilesLibrary
         private HashSet<String> audioExtensions;
         private HashSet<String> videoExtensions;
         private HashSet<String> textExtensions;
+        private HashSet<String> pictureExtensions;
         
         public FileLoader() 
         { 
             audioExtensions = new HashSet<string>();
             videoExtensions = new HashSet<string>();
             textExtensions = new HashSet<string>();
+            pictureExtensions = new HashSet<string>();
         }
 
         public AbstractFile LoadAbstractFile(FileSystemInfo finfo)
@@ -74,11 +76,20 @@ namespace TestWeb.Models.FilesLibrary
             {
                 file = new VideoFile(finfo);
             }
-            else 
+            else if (pictureExtensions.Contains(extension))
+            {
+                file = new PictureFile(finfo);
+            }
+            else
             {
                 file = new UnknownFile(finfo);
             }
             return file;
+        }
+
+        public bool addPictureExtension(String extension)
+        {
+            return pictureExtensions.Add(extension);
         }
 
         public bool addAudioExtension(String extension)
