@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>JQueryFileUpload_Demo_with_Backload</id>
+    <version>1.9.1</version>
+    <title>Demo JQuery File Upload by blueimp with Backload MVC 4</title>
+    <authors>Steffen Habermehl</authors>
+    <owners>Steffen Habermehl</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/blackcity/Backload</projectUrl>
+    <iconUrl>https://raw.github.com/blackcity/Backload/master/Examples/images/128/backload.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The original demo from the jQuery File Upload plugin together with the Backload server side upload controller/handler. 
+Important note: Expects the bundles "~/bundles/jquery" (jQuery) and "~/bundles/jqueryui" (jQuery UI) to be setup with this path (release notes.txt). For more examples and documentation on Backload see project page on GitHub.</description>
+    <releaseNotes>Developed for ASP.NET MVC 4. .NET Framework 4.5.
+Install this package into an empty MVC 4 Webapplication and run the examples.The package installs a HomeController together with the files.</releaseNotes>
+    <copyright>Steffen Habermehl 2013</copyright>
+    <tags>Fileupload, JQuery, Asp.Net MVC, Backload</tags>
+    <dependencies>
+      <dependency id="jQuery" version="2.0.2" />
+      <dependency id="jQuery.UI.Combined" version="1.10.3" />
+      <dependency id="JQuery_File_Upload_Plugin" version="8.6.2" />
+    </dependencies>
+  </metadata>
+</package>

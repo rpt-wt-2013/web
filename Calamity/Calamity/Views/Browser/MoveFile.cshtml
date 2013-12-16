@@ -1,0 +1,15 @@
+﻿@model Calamity.Models.MoveModel
+@{ Layout = null;}
+@using (Html.BeginForm("MoveFile", "Browser", FormMethod.Post, new { @id = "move", @style = "display:none;" }))
+{
+    <div class="FileTree" id="tree">
+        @{String dir = String.Format("C:\\Users\\Patrik\\Desktop\\WT\\Calamity\\Calamity\\Users\\{0}", User.Identity.Name);}
+        <span onclick ='setFormularValue(this, "data-new-path", "NewPath" , "move")' data-new-path = "@dir" >Root</span>
+        @{Html.RenderAction("FileTree", "Browser", new { @folder = dir, @view = "MoveFileTree" });}
+    </div>
+    @Html.HiddenFor(m => m.NewPath, Model.NewPath)
+    @Html.HiddenFor(m => m.File, Model.File)
+    <p>
+        <input type="submit" value="Move" />
+    </p>
+}

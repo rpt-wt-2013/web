@@ -1,0 +1,14 @@
+﻿@model DirectoryInfo[]
+@using Calamity.MyHelpers;
+<ul style="list-style:none;">
+    @foreach (DirectoryInfo dir in Model)
+    {
+        <li>
+            <span onclick ='setFormularValue(this, "data-new-path", "NewPath" , "move")' data-new-path = "@dir.FullName" >@dir.Name</span>
+            @if(dir.GetDirectories().Length > 0)
+            {
+                Html.RenderAction("FileTree", "Browser", new { @folder = dir.FullName, @view = "MoveFileTree" });
+            }
+        </li>
+    }
+</ul>

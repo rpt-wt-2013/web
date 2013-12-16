@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Backload</id>
+        <version>1.9.1.0</version>
+        <title>Backload. A professional, full featured ASP.NET MVC 4 file upload controller</title>
+        <authors>Steffen Habermehl</authors>
+        <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+        <projectUrl>https://github.com/blackcity/Backload</projectUrl>
+        <iconUrl>https://raw.github.com/blackcity/Backload/master/Examples/images/128/backload.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Backload is a professional, extensible, full featured ASP.NET MVC 4 file upload controller and handler (server side). This version the client side jQuery File Upload Plugin from blueimp and PlUpload from Moxiecode out of the box, but it can be easily customized to work with different client side plugins (Example 09 on GitHub).
+More than 10 examples on GitHub. You migth want to download the full demo package: PM&gt; Install-Package JQueryFileUpload_Demo_with_Backload</description>
+        <summary>Backload is a professional, extensible, asynchronous, full featured ASP.NET MVC 4 file upload controller and handler (server side).</summary>
+        <releaseNotes>This is the standard version which has no pro-active support (except issues). Also available: Professional version and Enterprise version (includes source code). Contact the authors on NuGet.
+This Release:
+- Added synchronous and asynchronous pipeline events to be consumed in a custom controller</releaseNotes>
+        <copyright>Steffen Habermehl 2013</copyright>
+        <tags>Fileupload, jQuery,ASP.NET, PlUpload, MVC, Controller, upload</tags>
+        <dependencies>
+            <dependency id="WebActivatorEx" version="2.0.2" />
+            <dependency id="WebGrease" version="1.3.0" />
+            <dependency id="Microsoft.AspNet.Web.Optimization" version="1.0.0" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="content\Content\Backload\content-types\128\Excel.png" target="content\Content\Backload\content-types\128\Excel.png" />
+        <file src="content\Content\Backload\content-types\128\File.png" target="content\Content\Backload\content-types\128\File.png" />
+        <file src="content\Content\Backload\content-types\128\FileNotFound.png" target="content\Content\Backload\content-types\128\FileNotFound.png" />
+        <file src="content\Content\Backload\content-types\128\Image.png" target="content\Content\Backload\content-types\128\Image.png" />
+        <file src="content\Content\Backload\content-types\128\Multimedia.png" target="content\Content\Backload\content-types\128\Multimedia.png" />
+        <file src="content\Content\Backload\content-types\128\OpenOffice-Writer.png" target="content\Content\Backload\content-types\128\OpenOffice-Writer.png" />
+        <file src="content\Content\Backload\content-types\128\PDF.png" target="content\Content\Backload\content-types\128\PDF.png" />
+        <file src="content\Content\Backload\content-types\128\PowerPoint.png" target="content\Content\Backload\content-types\128\PowerPoint.png" />
+        <file src="content\Content\Backload\content-types\128\Text.png" target="content\Content\Backload\content-types\128\Text.png" />
+        <file src="content\Content\Backload\content-types\128\Word.png" target="content\Content\Backload\content-types\128\Word.png" />
+        <file src="content\Content\Backload\content-types\16\Excel.png" target="content\Content\Backload\content-types\16\Excel.png" />
+        <file src="content\Content\Backload\content-types\16\File.png" target="content\Content\Backload\content-types\16\File.png" />
+        <file src="content\Content\Backload\content-types\16\FileNotFound.png" target="content\Content\Backload\content-types\16\FileNotFound.png" />
+        <file src="content\Content\Backload\content-types\16\Image.png" target="content\Content\Backload\content-types\16\Image.png" />
+        <file src="content\Content\Backload\content-types\16\Multimedia.png" target="content\Content\Backload\content-types\16\Multimedia.png" />
+        <file src="content\Content\Backload\content-types\16\OpenOffice-Writer.png" target="content\Content\Backload\content-types\16\OpenOffice-Writer.png" />
+        <file src="content\Content\Backload\content-types\16\PDF.png" target="content\Content\Backload\content-types\16\PDF.png" />
+        <file src="content\Content\Backload\content-types\16\PowerPoint.png" target="content\Content\Backload\content-types\16\PowerPoint.png" />
+        <file src="content\Content\Backload\content-types\16\Text.png" target="content\Content\Backload\content-types\16\Text.png" />
+        <file src="content\Content\Backload\content-types\16\Word.png" target="content\Content\Backload\content-types\16\Word.png" />
+        <file src="content\Content\Backload\content-types\24\Excel.png" target="content\Content\Backload\content-types\24\Excel.png" />
+        <file src="content\Content\Backload\content-types\24\File.png" target="content\Content\Backload\content-types\24\File.png" />
+        <file src="content\Content\Backload\content-types\24\FileNotFound.png" target="content\Content\Backload\content-types\24\FileNotFound.png" />
+        <file src="content\Content\Backload\content-types\24\Image.png" target="content\Content\Backload\content-types\24\Image.png" />
+        <file src="content\Content\Backload\content-types\24\Multimedia.png" target="content\Content\Backload\content-types\24\Multimedia.png" />
+        <file src="content\Content\Backload\content-types\24\OpenOffice-Writer.png" target="content\Content\Backload\content-types\24\OpenOffice-Writer.png" />
+        <file src="content\Content\Backload\content-types\24\PDF.png" target="content\Content\Backload\content-types\24\PDF.png" />
+        <file src="content\Content\Backload\content-types\24\PowerPoint.png" target="content\Content\Backload\content-types\24\PowerPoint.png" />
+        <file src="content\Content\Backload\content-types\24\Text.png" target="content\Content\Backload\content-types\24\Text.png" />
+        <file src="content\Content\Backload\content-types\24\Word.png" target="content\Content\Backload\content-types\24\Word.png" />
+        <file src="content\Content\Backload\content-types\32\Excel.png" target="content\Content\Backload\content-types\32\Excel.png" />
+        <file src="content\Content\Backload\content-types\32\File.png" target="content\Content\Backload\content-types\32\File.png" />
+        <file src="content\Content\Backload\content-types\32\FileNotFound.png" target="content\Content\Backload\content-types\32\FileNotFound.png" />
+        <file src="content\Content\Backload\content-types\32\Image.png" target="content\Content\Backload\content-types\32\Image.png" />
+        <file src="content\Content\Backload\content-types\32\Multimedia.png" target="content\Content\Backload\content-types\32\Multimedia.png" />
+        <file src="content\Content\Backload\content-types\32\OpenOffice-Writer.png" target="content\Content\Backload\content-types\32\OpenOffice-Writer.png" />
+        <file src="content\Content\Backload\content-types\32\PDF.png" target="content\Content\Backload\content-types\32\PDF.png" />
+        <file src="content\Content\Backload\content-types\32\PowerPoint.png" target="content\Content\Backload\content-types\32\PowerPoint.png" />
+        <file src="content\Content\Backload\content-types\32\Text.png" target="content\Content\Backload\content-types\32\Text.png" />
+        <file src="content\Content\Backload\content-types\32\Word.png" target="content\Content\Backload\content-types\32\Word.png" />
+        <file src="content\Content\Backload\content-types\48\Excel.png" target="content\Content\Backload\content-types\48\Excel.png" />
+        <file src="content\Content\Backload\content-types\48\File.png" target="content\Content\Backload\content-types\48\File.png" />
+        <file src="content\Content\Backload\content-types\48\FileNotFound.png" target="content\Content\Backload\content-types\48\FileNotFound.png" />
+        <file src="content\Content\Backload\content-types\48\Image.png" target="content\Content\Backload\content-types\48\Image.png" />
+        <file src="content\Content\Backload\content-types\48\Multimedia.png" target="content\Content\Backload\content-types\48\Multimedia.png" />
+        <file src="content\Content\Backload\content-types\48\OpenOffice-Writer.png" target="content\Content\Backload\content-types\48\OpenOffice-Writer.png" />
+        <file src="content\Content\Backload\content-types\48\PDF.png" target="content\Content\Backload\content-types\48\PDF.png" />
+        <file src="content\Content\Backload\content-types\48\PowerPoint.png" target="content\Content\Backload\content-types\48\PowerPoint.png" />
+        <file src="content\Content\Backload\content-types\48\Text.png" target="content\Content\Backload\content-types\48\Text.png" />
+        <file src="content\Content\Backload\content-types\48\Word.png" target="content\Content\Backload\content-types\48\Word.png" />
+        <file src="content\Content\Backload\content-types\64\Excel.png" target="content\Content\Backload\content-types\64\Excel.png" />
+        <file src="content\Content\Backload\content-types\64\File.png" target="content\Content\Backload\content-types\64\File.png" />
+        <file src="content\Content\Backload\content-types\64\FileNotFound.png" target="content\Content\Backload\content-types\64\FileNotFound.png" />
+        <file src="content\Content\Backload\content-types\64\Image.png" target="content\Content\Backload\content-types\64\Image.png" />
+        <file src="content\Content\Backload\content-types\64\Multimedia.png" target="content\Content\Backload\content-types\64\Multimedia.png" />
+        <file src="content\Content\Backload\content-types\64\OpenOffice-Writer.png" target="content\Content\Backload\content-types\64\OpenOffice-Writer.png" />
+        <file src="content\Content\Backload\content-types\64\PDF.png" target="content\Content\Backload\content-types\64\PDF.png" />
+        <file src="content\Content\Backload\content-types\64\PowerPoint.png" target="content\Content\Backload\content-types\64\PowerPoint.png" />
+        <file src="content\Content\Backload\content-types\64\Text.png" target="content\Content\Backload\content-types\64\Text.png" />
+        <file src="content\Content\Backload\content-types\64\Word.png" target="content\Content\Backload\content-types\64\Word.png" />
+        <file src="content\Content\Backload\content-types\72\Excel.png" target="content\Content\Backload\content-types\72\Excel.png" />
+        <file src="content\Content\Backload\content-types\72\File.png" target="content\Content\Backload\content-types\72\File.png" />
+        <file src="content\Content\Backload\content-types\72\FileNotFound.png" target="content\Content\Backload\content-types\72\FileNotFound.png" />
+        <file src="content\Content\Backload\content-types\72\Image.png" target="content\Content\Backload\content-types\72\Image.png" />
+        <file src="content\Content\Backload\content-types\72\Multimedia.png" target="content\Content\Backload\content-types\72\Multimedia.png" />
+        <file src="content\Content\Backload\content-types\72\OpenOffice-Writer.png" target="content\Content\Backload\content-types\72\OpenOffice-Writer.png" />
+        <file src="content\Content\Backload\content-types\72\PDF.png" target="content\Content\Backload\content-types\72\PDF.png" />
+        <file src="content\Content\Backload\content-types\72\PowerPoint.png" target="content\Content\Backload\content-types\72\PowerPoint.png" />
+        <file src="content\Content\Backload\content-types\72\Text.png" target="content\Content\Backload\content-types\72\Text.png" />
+        <file src="content\Content\Backload\content-types\72\Word.png" target="content\Content\Backload\content-types\72\Word.png" />
+        <file src="content\Content\Backload\content-types\96\Excel.png" target="content\Content\Backload\content-types\96\Excel.png" />
+        <file src="content\Content\Backload\content-types\96\File.png" target="content\Content\Backload\content-types\96\File.png" />
+        <file src="content\Content\Backload\content-types\96\FileNotFound.png" target="content\Content\Backload\content-types\96\FileNotFound.png" />
+        <file src="content\Content\Backload\content-types\96\Image.png" target="content\Content\Backload\content-types\96\Image.png" />
+        <file src="content\Content\Backload\content-types\96\Multimedia.png" target="content\Content\Backload\content-types\96\Multimedia.png" />
+        <file src="content\Content\Backload\content-types\96\OpenOffice-Writer.png" target="content\Content\Backload\content-types\96\OpenOffice-Writer.png" />
+        <file src="content\Content\Backload\content-types\96\PDF.png" target="content\Content\Backload\content-types\96\PDF.png" />
+        <file src="content\Content\Backload\content-types\96\PowerPoint.png" target="content\Content\Backload\content-types\96\PowerPoint.png" />
+        <file src="content\Content\Backload\content-types\96\Text.png" target="content\Content\Backload\content-types\96\Text.png" />
+        <file src="content\Content\Backload\content-types\96\Word.png" target="content\Content\Backload\content-types\96\Word.png" />
+        <file src="content\Web.config.transform" target="content\Web.config.transform" />
+        <file src="content\Web.FileUpload.Default.config" target="content\Web.FileUpload.Default.config" />
+        <file src="content\Web.FileUpload.xsd" target="content\Web.FileUpload.xsd" />
+        <file src="content\Web.FileUploadGroup.xsd" target="content\Web.FileUploadGroup.xsd" />
+        <file src="lib\net45\de\Backload.resources.dll" target="lib\net45\de\Backload.resources.dll" />
+        <file src="lib\net45\Backload.Contracts.dll" target="lib\net45\Backload.Contracts.dll" />
+        <file src="lib\net45\Backload.dll" target="lib\net45\Backload.dll" />
+    </files>
+</package>

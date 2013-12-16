@@ -1,0 +1,14 @@
+﻿@model Calamity.Models.CreateFolderModel
+@{ Layout = null;}
+@using (Html.BeginForm("CreateDirectory", "Browser", FormMethod.Post, new { @id = "create", @style = "display:none;" }))
+{
+    <div class="editor-label">
+        @Html.LabelFor(m => m.FolderName)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(m => m.FolderName)
+    </div>
+    <p>
+        <input type="submit" value="Create" />
+    </p>
+}

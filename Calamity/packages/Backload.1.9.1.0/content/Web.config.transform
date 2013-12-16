@@ -1,0 +1,15 @@
+﻿<configuration>
+
+  <configSections>
+     <sectionGroup name="fileUploadGroup">
+      <section name="fileUpload" type="Backload.Configuration.FileUploadSection, Backload, Version=1.9, Culture=neutral, PublicKeyToken=02eaf42ab375d363" requirePermission="false" />
+    </sectionGroup>
+  </configSections>
+  <fileUploadGroup>
+    <!--
+      // See examples on GitHub for config opetions or use the Web.FileUpload.Default.config file as a starting point.
+      <fileUpload configSource="Web.FileUpload.config" />
+    -->
+  </fileUploadGroup>
+
+</configuration>

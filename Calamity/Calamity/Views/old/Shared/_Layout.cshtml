@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/themes/base/css")
+        @Styles.Render("~/Content/css")
+        <!-- We use Backloads. bundeling feature to register all client side javascript and style files of the jQuery File Upload Plugin  -->
+        @Styles.Render("~/bundles/fileupload/jqueryui/BasicPlusUI/css")
+        @RenderSection("styles", required: false)
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        <!-- We use Backloads. bundeling feature to register all client side javascript and style files of the jQuery File Upload Plugin  -->
+        @Scripts.Render("~/bundles/fileupload/jqueryui/BasicPlusUI/js")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

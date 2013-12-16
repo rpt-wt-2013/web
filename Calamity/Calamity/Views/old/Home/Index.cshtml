@@ -1,0 +1,234 @@
+﻿@{
+    ViewBag.Title = "Backload. Professional ASP.NET MVC File Upload Handler - Example 1";
+}
+
+@section styles {   
+    <!-- Optional: Include jQuery ui themes for the themes switcher -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/dark-hive/jquery-ui.css" id="theme">
+    <!-- Optional: We use the jQuery colorbox plugin to view uploaded images when we click on it. -->
+    <link href="~/Content/ColorBox/colorbox.css" rel="stylesheet" />
+    <!-- Optional: Some styles for this demo page -->
+    <link href="~/Content/styles.css" rel="stylesheet" />
+}    
+    
+
+@section scripts {
+    <!-- Optional: We use the jQuery colorbox plugin to view uploaded images when we click on it. -->
+    <script src="~/Scripts/ColorBox/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="~/Scripts/main.js"></script>
+}
+<div class="ex-head">
+<h2><span class="bl">Backload.</span>&nbsp;&nbsp;A professional File Upload handler</h2>
+    <span class="theme-switcher-info">Select a jQuery ui theme:</span>
+    <select id="theme-switcher" class="theme-switcher">
+        <option value="base">Base</option>
+        <option value="black-tie">Black Tie</option>
+        <option value="blitzer">Blitzer</option>
+        <option value="cupertino">Cupertino</option>
+        <option value="dark-hive" selected>Dark Hive</option>
+        <option value="dot-luv">Dot Luv</option>
+        <option value="eggplant">Eggplant</option>
+        <option value="excite-bike">Excite Bike</option>
+        <option value="flick">Flick</option>
+        <option value="hot-sneaks">Hot sneaks</option>
+        <option value="humanity">Humanity</option>
+        <option value="le-frog">Le Frog</option>
+        <option value="mint-choc">Mint Choc</option>
+        <option value="overcast">Overcast</option>
+        <option value="pepper-grinder">Pepper Grinder</option>
+        <option value="redmond">Redmond</option>
+        <option value="smoothness">Smoothness</option>
+        <option value="south-street">South Street</option>
+        <option value="start">Start</option>
+        <option value="sunny">Sunny</option>
+        <option value="swanky-purse">Swanky Purse</option>
+        <option value="trontastic">Trontastic</option>
+        <option value="ui-darkness">UI Darkness</option>
+        <option value="ui-lightness">UI Lightness</option>
+        <option value="vader">Vader</option>
+    </select>
+
+    <div class="ex-desc">This is a demo in a series of examples showing the usage and features of <span class="bl">Backload.</span>, a professional full featured ASP.NET MVC file upload server side controller/handler, in the version for the 
+        popular <a href="https://github.com/blueimp/jQuery-File-Upload" target="_blank">jQuery File Upload plugin from blueimp</a>. 
+        We're using the jQuery ui version here, but you can also use the bootstrap version. This has no influence on the <span class="bl">Backload.</span> controller. For more information on the client side 
+        plugin see <a href="https://github.com/blueimp/jQuery-File-Upload" target="_blank">here</a>.<br />
+        <span class="ex-imp">Important note:</span> This example uses jQuery 2.0. Older Browsers (e.g. IE < 9) are <a href="http://blog.jquery.com/2013/04/18/jquery-2-0-released/" target="_blank">not supported</a> anymore since v2.0! Use jQuery v1.9.1 instead.
+    </div>
+</div>
+<div class="ex-inf">
+<h2>Example 1: Zero configuration</h2>
+    <p><span class="bl">Backload.</span> has a very rich set of configuration options. It can be entirely configured within the web.config file or alternatively a config file linked to the web.config. 
+        But, you do not have to set any option if you are happy with the defaults (In these examples we use Backloads 
+        bundling feature in order to link the scripts and styles of the client side plugin to the page). 
+        Note: If you use the client side jQuery File Upload plugin it is strongly recommend taking a look on how it uses templating (see html source code). 
+        You can easily style the plugin by adding or removing styles in the template or even add new functionality to the plugin.
+    </p>
+</div>
+
+
+<!-- BEGIN: jQuery Fle Upload Plugin -->
+<form id="fileupload" action="/Backload/UploadHandler" method="POST" enctype="multipart/form-data">
+<div class="ex-fup">
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+    <div class="row fileupload-buttonbar">
+        <div class="span7">
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="btn btn-success fileinput-button">
+                <i class="icon-plus icon-white"></i>
+                <span>Add files...</span>
+                <input type="file" name="files[]" multiple>
+            </span>
+            <button type="submit" class="btn btn-primary start">
+                <i class="icon-upload icon-white"></i>
+                <span>Start upload</span>
+            </button>
+            <button type="reset" class="btn btn-warning cancel">
+                <i class="icon-ban-circle icon-white"></i>
+                <span>Cancel upload</span>
+            </button>
+            <button type="button" class="btn btn-danger delete">
+                <i class="icon-trash icon-white"></i>
+                <span>Delete</span>
+            </button>
+            <input type="checkbox" class="toggle">
+        </div>
+        <!-- The global progress information -->
+        <div class="span5 fileupload-progress fade">
+            <!-- The global progress bar -->
+            <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                <div class="bar" style="width:0%;"></div>
+            </div>
+            <!-- The extended global progress information -->
+            <div class="progress-extended">&nbsp;</div>
+        </div>
+    </div>
+    <!-- The loading indicator is shown during file processing -->
+    <div class="fileupload-loading"></div>
+    <br>
+    <!-- The table listing the files available for upload/download -->
+    <table id="demo-fup-table" role="presentation" class="table table-striped ui-widget"><tbody class="files ui-widget-content" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+</div>
+</form>
+
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade ui-state-hover" data-type="{%=file.main_type%}">
+        <td class="preview"><span class="fade"></span></td>
+        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
+        {% } else if (o.files.valid && !i) { %}
+            <td>
+                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+            </td>
+            <td>{% if (!o.options.autoUpload) { %}
+                <button class="btn btn-primary start">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start</span>
+                </button>
+            {% } %}</td>
+        {% } else { %}
+            <td colspan="2"></td>
+        {% } %}
+        <td class="action">{% if (!i) { %}
+            <button class="btn btn-warning cancel">
+                <i class="icon-ban-circle icon-white"></i>
+                <span>Cancel</span>
+            </button>
+        {% } %}</td>
+    </tr>
+{% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade ui-state-default" data-type="{%=file.main_type%}" >
+        {% if (file.error) { %}
+            <td></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
+        {% } else { %}
+            <td class="preview">{% if (file.thumbnail_url) { %}
+                <a href="{%=file.url%}" target="_blank" title="{%=file.name%}" data-gallery="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+            {% } %}</td>
+            <td class="name">
+                <a href="{%=file.url%}" target="_blank" title="{%=file.name%}" data-gallery="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+            </td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td colspan="2"></td>
+        {% } %}
+        <td class="action">
+            <button class="btn btn-danger delete" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}"{% if (file.delete_with_credentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                <i class="icon-trash icon-white"></i>
+                <span>Delete</span>
+            </button>
+            <input type="checkbox" name="delete" value="1" class="toggle">
+        </td>
+    </tr>
+{% } %}
+</script>
+<!-- END: jQuery Fle Upload Plugin -->
+
+
+
+<div class="ex-inf">
+    <h4>Basic setup information</h4>
+    <ol>
+        <li>Make sure, you have write access to the default upload folder "~/files".</li>
+        <li>Reference the <span class="bl">Backload.</span> assembly (Backload.dll).</li>
+        <li>Include the client side plugin files. If you use the jQuery File Upload Plugin, you can use <span class="bl">Backloads.</span> bundeling feature.</li>
+        <li>Initialize the client side plugin with the url of the default upload handler:</li>
+    </ol>
+    <pre style="font-family: Consolas; font-size: 13px; color: black; background: white;">
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">//&nbsp;Upload&nbsp;directly&nbsp;to&nbsp;the&nbsp;built-in&nbsp;server&nbsp;side&nbsp;upload&nbsp;controller.&nbsp;This&nbsp;is&nbsp;the&nbsp;default&nbsp;upload&nbsp;controller&nbsp;of&nbsp;Backload.</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue;">var</span>&nbsp;fileUploadUrl&nbsp;=&nbsp;<span style="color:#a31515;">&quot;/Backload/UploadHandler&quot;</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">//&nbsp;Initialize&nbsp;the&nbsp;jQuery&nbsp;File&nbsp;Upload&nbsp;widget:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;$(<span style="color:#a31515;">&#39;#fileupload&#39;</span>).fileupload({
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url:&nbsp;fileUploadUrl,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acceptFileTypes:&nbsp;<span style="color:maroon;">/(jpg)|(jpeg)|(png)|(gif)$/i</span>&nbsp;<span style="color:green;">//&nbsp;Allowed&nbsp;file&nbsp;types</span>
+&nbsp;&nbsp;&nbsp;&nbsp;});
+</pre>
+    <br />
+    In order to use the bundeling feature of Backload you have several options: Install the NuGet package <code>pm> JQuery_File_Upload_Plugin</code> (> v8.6) which registers the bundles on <code>AppStart</code> in <code>BackloadConfig.cs</code> (see <code>App_Start</code> folder) or 
+    add the following lines to global.asax (or <code>BackloadConfig.cs</code> or <code>BundlesConfig.cs</code>):
+        <pre style="font-family: Consolas; font-size: 13px; color: black; background: white;">
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">//&nbsp;global.asax:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">//&nbsp;Use&nbsp;bundeling&nbsp;for&nbsp;client&nbsp;files&nbsp;(scripts&nbsp;(js)&nbsp;and&nbsp;styles&nbsp;(css)).&nbsp;You&nbsp;can&nbsp;include/exclude&nbsp;the&nbsp;image&nbsp;gallery&nbsp;provided&nbsp;by&nbsp;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">//&nbsp;the&nbsp;default&nbsp;jQuery&nbsp;file&nbsp;upload&nbsp;ui&nbsp;demo&nbsp;implementaion</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">//&nbsp;Comment&nbsp;this&nbsp;out,&nbsp;if&nbsp;you&nbsp;manually&nbsp;include&nbsp;the&nbsp;files&nbsp;in&nbsp;your&nbsp;page</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">//&nbsp;Overload:&nbsp;RegisterBundles(BundleTable.Bundles,&nbsp;inclImageGallery,&nbsp;pathToScripts,&nbsp;pathToStyles)&nbsp;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">//&nbsp;Example:&nbsp;Backload...RegisterBundles(BundleTable.Bundles,&nbsp;false,&nbsp;&quot;~/Scripts/FileUpload/&quot;,&nbsp;&quot;~/Content/FileUpload/css/&quot;);</span>
+&nbsp;&nbsp;&nbsp;&nbsp;Backload.Configuration.<span style="color:#2b91af;">Bundles</span>.RegisterBundles(<span style="color:#2b91af;">BundleTable</span>.Bundles,&nbsp;<span style="color:blue;">false</span>);
+</pre><br />
+     Call the <code>Render()</code> method for the appropriate styles and script bundles in a view or in _layout.cshtml).
+    <pre style="font-family: Consolas; font-size: 13px; color: black; background: white;">
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;"></span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">//&nbsp;_layout.cshtml (or a view):</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue;">&lt;</span><span style="color:maroon;">head</span><span style="color:blue;">&gt;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background: yellow;">@Html.Raw("@")</span><span style="color:#2b91af;">Styles</span>.Render(<span style="color:#a31515;">&quot;~/bundles/fileupload/jqueryui/BasicPlusUI/css&quot;</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue;">&lt;/</span><span style="color:maroon;">head</span><span style="color:blue;">&gt;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue;">&lt;</span><span style="color:maroon;">body</span><span style="color:blue;">&gt;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background: yellow;">@Html.Raw("@")</span><span style="color:#2b91af;">Scripts</span>.Render(<span style="color:#a31515;">&quot;~/bundles/fileupload/jqueryui/BasicPlusUI/js&quot;</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue;">&lt;/</span><span style="color:maroon;">body</span><span style="color:blue;">&gt;</span>
+</pre>
+        <br />
+    <h4>Conclusion</h4>
+    <p>
+        This basic example demonstrates the minimum setup required to upload files to the default upload files folder (~/files). When you add a reference to the <span class="bl">Backload.</span> assembly, the default 
+        upload handler (url: "/Backload/UploadHandler") will handle incoming uploads. In a later example, we will show you, how to use your own controllers or use <span class="bl">Backloads.</span> eventing, in order to execute your business logic with incoming uploads.
+    </p><br />
+    <h5>License information</h5>
+    <p class="licenses">
+        <a href="https://github.com/blackcity/backload" target="_blank">Backload. (Standard version):</a> Copyright 2013, Steffen Habermehl, License (Standard version): <a href="http://www.opensource.org/licenses/MIT" target="_blank">MIT license</a>,<br />
+        <a href="mailto:s.habermehl@freenet.de" target="_blank">Professional and Enterprise versions</a> are only available under a commercial license.<br />
+        Follow us on Twitter: <a href="https://twitter.com/backload_mvc" target="_blank">&#0064;Backload_MVC</a>
+</p>
+
+</div>
+

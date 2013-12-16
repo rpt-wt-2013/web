@@ -1,0 +1,349 @@
+﻿@model Calamity.Models.FilesLibrary.WorkingFolder
+@using Calamity.Models.FilesLibrary;
+@using Calamity.MyHelpers;
+@{
+    ViewBag.Title = "Root";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {   
+    <!-- Optional: Include jQuery ui themes for the themes switcher for demo purposes -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/blitzer/jquery-ui.css" id="theme">
+ 
+    <!-- We use Backloads. bundeling feature to register only those client side javascript and style files of the jQuery File Upload Plugin that are needed  -->
+    @Styles.Render("~/bundles/fileupload/jqueryui/BasicPlusUI/css")
+
+    <!-- Optional: Some styles for this demo page -->
+    <link href="~/Content/demos.jqueryui.styles.css" rel="stylesheet" />
+}    
+    
+@section Script {
+    <script src="@Url.Content("~/Scripts/jquery-2.0.3.min.js")" type="text/javascript"></script>    
+
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/cubi.js")" type="text/javascript"></script>
+
+
+     <!-- We use jQuery UI mode in this example, so the jQuery UI js file (defined in App_Start/BundleConfig.cs) -->
+    @Scripts.Render("~/bundles/jqueryui")
+
+    <!-- We use Backloads. bundeling feature to register only those client side javascript and style files of the jQuery File Upload Plugin that are needed  -->
+    @Scripts.Render("~/bundles/fileupload/jqueryui/BasicPlusUI/js")
+
+    <!-- Initialize the jQuery File Upload Plugin -->
+    <script src="~/Scripts/demos.jqueryui.basicplusui.js"></script>
+    <script>
+    $(function () {
+        $('#fileupload').bind('fileuploadstop', function (e) {
+            var url = '@Url.Action("UploadFinished", "Browser")';
+            
+            window.location.href = url;
+        });
+    });
+    </script>
+}
+<h2>Root</h2>
+<img src="@Url.Content("~/Content/icons/newfolder32.png")" onclick='showFormular(this, "create")'/>
+<img src="@Url.Content("~/Content/icons/upload32.png")" onclick='showFormular(this, "upload")'/>
+<div>
+    @using (Html.BeginForm("Upload", "Browser", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "upload", @style = "display:none;" }))
+    { 
+
+        <input type="file" name="FileUpload1" /><br />
+        <input type="submit" name="Submit" id="Submit" value="Upload" />
+    }
+</div>
+<div>
+    @{Html.RenderAction("RenameFile", "Browser");}
+</div>
+<div>
+    @{Html.RenderAction("MoveFile", "Browser");}
+</div>
+<div>
+    @{Html.RenderAction("CopyFile", "Browser");}
+</div>
+<div>
+    @{Html.RenderAction("CreateDirectory", "Browser");}
+</div>
+<table style="border-width:medium;">
+    <tr>
+        <th style="width:250px">
+            Name
+        </th>
+        <th style="width:75px">
+            Type
+        </th>
+        <th style="width:75px">
+            Size
+        </th>
+    <tr>
+@foreach (AbstractFile file in Model.GetFiles())
+{
+    <tr>
+    @if (file is Folder)
+    {
+        <td>
+            <a href="@Url.Action("Folder", "Browser", new { @name = file.FullName })">
+                <img src="@Url.Content("~/Content/icons/folder24.png")"/>
+                @String.Format("[{0}]", file.Name)
+            </a>
+        </td>
+        <td>
+            Folder
+        </td>
+        <td>
+            &ltDIR&gt
+        </td>
+        <td>
+            <span onclick ='showFormular(this, "rename")' data-file = "@file.FullName" >rename</span>
+        </td>
+        <td>
+            <span onclick ='showFormular(this, "move")' data-file = "@file.FullName" >move</span>
+        </td>
+        <td>
+            <span onclick ='showFormular(this, "copy")' data-file = "@file.FullName" >copy</span>
+        </td>
+        <td>
+            @Ajax.ActionLink("delete", "DeleteFile", "Browser", new { name = file.FullName},
+         new AjaxOptions { Confirm = "Do You really want to delete this file?" })
+        </td>
+    }
+    else
+    {
+        var type = "";
+        var controller = "";
+        var action = "";
+        var image = "";
+
+
+        if (file is AudioFile)
+        {
+            type = "Audio";
+            controller = "AudioPlayer";
+            action = "EmptyAudioPlayer";
+            image = "audio24";
+        }
+        else if (file is VideoFile)
+        {
+            type = "Video";
+            controller = "VideoPlayer";
+            action = "PlayVideo";
+            image = "video24";
+        }
+        else if (file is TextFile)
+        {
+            type = "Text";
+            controller = "TextViewer";
+            action = "ViewText";
+            image = "text24";
+        }
+        else if (file is PictureFile)
+        {
+            type = "Picture";
+            controller = "PictureViewer";
+            action = "ViewPicture";
+            image = "image24";
+        }
+        else if (file is UnknownFile)
+        {
+            type = "Other";
+            controller = "Browser";
+            action = "Download";
+            image = "unknown24";
+        }
+            
+            
+        <td>
+            <a href="@Url.Action(@action, @controller, new { @name = file.FullName })">
+                <img src="@Url.Content("~/Content/icons/" + @image + ".png")"/>
+                @Path.GetFileNameWithoutExtension(file.Name)
+            </a>
+        </td>
+        <td>
+            @type
+        </td>
+        <td>
+            @{ float length = ((FileInfo)file.File).Length; } 
+            @if (length < 1024)
+            {
+                @String.Format("{0} B", length)
+            }
+            @if (length > 1024 && length < (1024 * 1024))
+            { 
+                @String.Format("{0} kB", Math.Round((length / 1024), 2))
+            }
+            @if (length > (1024 * 1024))
+            { 
+                @String.Format("{0} MB", Math.Round((length / (1024 * 1024)), 2))
+            }
+        </td>
+        <td>
+            <span onclick ='showFormular(this, "rename")' data-file = "@file.FullName" >rename</span>
+        </td>
+        <td>
+            <span onclick ='showFormular(this, "move")' data-file = "@file.FullName" >move</span>
+        </td>
+        <td>
+            <span onclick ='showFormular(this, "copy")' data-file = "@file.FullName" >copy</span>
+        </td>
+        <td>
+            @Ajax.ActionLink("delete", "DeleteFile", "Browser", new { name = file.FullName},
+         new AjaxOptions { Confirm = "Do You really want to delete this file?" })
+        </td>
+    }
+    </tr>
+}
+</table>
+
+     <span class="theme-switcher-info">Select a jQuery ui theme:&nbsp;</span>
+    <select id="theme-switcher" class="theme-switcher">
+        <option value="base">Base</option>
+        <option value="black-tie">Black Tie</option>
+        <option value="blitzer" selected>Blitzer</option>
+        <option value="cupertino">Cupertino</option>
+        <option value="dark-hive">Dark Hive</option>
+        <option value="dot-luv">Dot Luv</option>
+        <option value="eggplant">Eggplant</option>
+        <option value="excite-bike">Excite Bike</option>
+        <option value="flick">Flick</option>
+        <option value="hot-sneaks">Hot sneaks</option>
+        <option value="humanity">Humanity</option>
+        <option value="le-frog">Le Frog</option>
+        <option value="mint-choc">Mint Choc</option>
+        <option value="overcast">Overcast</option>
+        <option value="pepper-grinder">Pepper Grinder</option>
+        <option value="redmond">Redmond</option>
+        <option value="smoothness">Smoothness</option>
+        <option value="south-street">South Street</option>
+        <option value="start">Start</option>
+        <option value="sunny">Sunny</option>
+        <option value="swanky-purse">Swanky Purse</option>
+        <option value="trontastic">Trontastic</option>
+        <option value="ui-darkness">UI Darkness</option>
+        <option value="ui-lightness">UI Lightness</option>
+        <option value="vader">Vader</option>
+    </select>
+
+<!-- BEGIN: jQuery Fle Upload Plugin -->
+<form id="fileupload" action="/Backload/UploadHandler" method="POST" enctype="multipart/form-data">
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+    <div class="row fileupload-buttonbar">
+        <div class="span7">
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="btn btn-success fileinput-button">
+                <span>Add files...</span>
+                <input type="file" name="files[]" multiple>
+            </span>
+            <button type="submit" class="btn btn-primary start">
+                <span>Start upload</span>
+            </button>
+            <button type="reset" class="btn btn-warning cancel">
+                <span>Cancel upload</span>
+            </button>
+            <button type="button" class="btn btn-danger delete">
+                <span>Delete</span>
+            </button>
+            <input type="checkbox" class="toggle">
+        </div>
+        <!-- The global progress information -->
+        <div class="span5 fileupload-progress fade">
+            <!-- The global progress bar -->
+            <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                <div class="bar" style="width:0%;"></div>
+            </div>
+            <!-- The extended global progress information -->
+            <div class="progress-extended">&nbsp;</div>
+        </div>
+    </div>
+    <!-- The loading indicator is shown during file processing -->
+    <div class="fileupload-loading"></div>
+    <br>
+    <!-- The table listing the files available for upload/download -->
+    <table id="demo-fup-table" role="presentation" class="table table-striped ui-widget"><tbody class="files ui-widget-content" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+    
+@{
+    
+    String workingDir = SessionVariables.GetWorkingFolder().FullName; 
+    // C:\\Users\\Patrik\\Desktop\\WT\\Calamity\\Calamity\\Users\\
+        
+    string pattern = ".*.Users.";
+    System.Text.RegularExpressions.Regex rgx = new System.Text.RegularExpressions.Regex(pattern);
+    string result = rgx.Replace(workingDir, "");
+
+
+}
+
+<input type="hidden" name="objectContext" value="@result" />
+
+</form>
+
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade ui-state-hover" data-type="{%=file.main_type%}">
+        <td class="preview"><span class="fade"></span></td>
+        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
+        {% } else if (o.files.valid && !i) { %}
+            <td>
+                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+            </td>
+            <td>{% if (!o.options.autoUpload) { %}
+                <button class="btn btn-primary start">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start</span>
+                </button>
+            {% } %}</td>
+        {% } else { %}
+            <td colspan="2"></td>
+        {% } %}
+        <td class="action">{% if (!i) { %}
+            <button class="btn btn-warning cancel">
+                <i class="icon-ban-circle icon-white"></i>
+                <span>Cancel</span>
+            </button>
+        {% } %}</td>
+    </tr>
+{% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade ui-state-default" data-type="{%=file.main_type%}" >
+        {% if (file.error) { %}
+            <td></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
+        {% } else { %}
+            <td class="preview">{% if (file.thumbnail_url) { %}
+                <a href="{%=file.url%}" target="_blank" title="{%=file.name%}" data-gallery="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+            {% } %}</td>
+            <td class="name">
+                <a href="{%=file.url%}" target="_blank" title="{%=file.name%}" data-gallery="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+            </td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td colspan="2"></td>
+        {% } %}
+        <td class="action">
+            <button class="btn btn-danger delete" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}"{% if (file.delete_with_credentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                <i class="icon-trash icon-white"></i>
+                <span>Delete</span>
+            </button>
+            <input type="checkbox" name="delete" value="1" class="toggle">
+        </td>
+    </tr>
+{% } %}
+</script>
+<!-- END: jQuery Fle Upload Plugin -->
+
+<br>

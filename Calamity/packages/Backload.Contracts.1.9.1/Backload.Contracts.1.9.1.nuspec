@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Backload.Contracts</id>
+        <version>1.9.1</version>
+        <title>Backload.Contracts</title>
+        <authors>Steffen Habermehl</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Local standalone package to update extensions.</description>
+        <summary />
+        <copyright>Copyright 2013 Steffen Habermehl</copyright>
+    </metadata>
+    <files>
+        <file src="..\lib\Backload.Contracts.dll" target="lib\net45\Backload.Contracts.dll" />
+    </files>
+</package>
